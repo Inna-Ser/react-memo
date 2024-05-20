@@ -1,35 +1,35 @@
-import { Link, useNavigate } from 'react-router-dom'
-import styles from './SelectLevelPage.module.css'
-import { useContext, useEffect, useState } from 'react'
-import { GamesContext } from '../../context/GamesProvider'
-import { Button } from '../../components/Button/Button'
-import classNames from 'classnames'
+import { Link, useNavigate } from "react-router-dom";
+import styles from "./SelectLevelPage.module.css";
+import { useContext, useEffect, useState } from "react";
+import { GamesContext } from "../../context/GamesProvider";
+import { Button } from "../../components/Button/Button";
+import classNames from "classnames";
 
 export function SelectLevelPage() {
-  const { lifes } = useContext(GamesContext)
-  const [tipeMode, setTypeMode] = useState('')
-  const navigator = useNavigate()
-  const [isActive, setIsActive] = useState(null)
+  const { lifes } = useContext(GamesContext);
+  const [tipeMode, setTypeMode] = useState("");
+  const navigator = useNavigate();
+  const [isActive, setIsActive] = useState(null);
 
   useEffect(() => {
     if (lifes === 1) {
-      setTypeMode('Сложный')
-      return
+      setTypeMode("Сложный");
+      return;
     }
     if (lifes === 2) {
-      setTypeMode('Средний')
+      setTypeMode("Средний");
 
-      return
+      return;
     }
     if (lifes === 3) {
-      setTypeMode('Легкий')
-      return
+      setTypeMode("Легкий");
+      return;
     }
-  }, [lifes])
+  }, [lifes]);
 
-  const handleClick = (level) => {
-    setIsActive(level)
-  }
+  const handleClick = level => {
+    setIsActive(level);
+  };
 
   return (
     <div className={styles.container}>
@@ -69,21 +69,21 @@ export function SelectLevelPage() {
           {tipeMode} режим {lifes === 1 ? `${lifes} жизнь` : `${lifes} жизни`}
         </p>
         <Button
-          children={'Старт'}
+          children={"Старт"}
           onClick={() => {
             if (lifes === 1) {
-              navigator('/game/3')
+              navigator("/game/3");
             } else if (lifes === 2) {
-              navigator('/game/6')
+              navigator("/game/6");
             } else if (lifes === 3) {
-              navigator('/game/9')
+              navigator("/game/9");
             }
           }}
         />
-        <Link className={styles.comebackToMainPage} to={'/'}>
+        <Link className={styles.comebackToMainPage} to={"/"}>
           Вернуться к выбору сложности
         </Link>
       </div>
     </div>
-  )
+  );
 }
