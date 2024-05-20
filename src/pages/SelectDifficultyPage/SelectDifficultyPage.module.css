@@ -73,22 +73,6 @@
   font-family: StratosSkyeng;
 }
 
-.comebackToMainPage {
-  text-align: center;
-  color: #004980;
-  font-size: 16px;
-  margin-top: 30px;
-  &:hover {
-    color: #0080c1;
-  }
-}
-
-.selectedMode {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-
 .active {
-  background-color: aqua;
+  border-color: #004980;
 }

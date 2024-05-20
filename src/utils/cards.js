@@ -1,6 +1,5 @@
 import { shuffle } from "lodash";
-import { SPADES_SUIT, CROSS_SUIT, DIAMONDS_SUIT, HEARTS_SUIT } from "../const";
-
+import { CROSS_SUIT, DIAMONDS_SUIT, HEARTS_SUIT, SPADES_SUIT } from "./const";
 const SUITS = [SPADES_SUIT, CROSS_SUIT, DIAMONDS_SUIT, HEARTS_SUIT];
 
 const RANK_SIX = "6";
@@ -15,12 +14,22 @@ const RANK_ACE = "A";
 
 const RANKS = [RANK_SIX, RANK_SEVEN, RANK_EIGHT, RANK_NINE, RANK_TEN, RANK_JACK, RANK_QUEEN, RANK_KING, RANK_ACE];
 
+export const STATUS_LOST = "STATUS_LOST";
+export const STATUS_WON = "STATUS_WON";
+// Идет игра: карты закрыты, игрок может их открыть
+export const STATUS_IN_PROGRESS = "STATUS_IN_PROGRESS";
+// Начало игры: игрок видит все карты в течении нескольких секунд
+export const STATUS_PREVIEW = "STATUS_PREVIEW";
+
 function createUniqueDeck() {
   const deck = [];
 
   SUITS.forEach(suit => {
     RANKS.forEach(rank => {
-      deck.push({ rank, suit });
+      deck.push({
+        rank,
+        suit,
+      });
     });
   });
 

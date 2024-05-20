@@ -18,3 +18,4 @@ pre-commit:
     eslint:
       glob: "*.{js,jsx}"
       run: npm run lint
+      

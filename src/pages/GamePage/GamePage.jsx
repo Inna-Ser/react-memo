@@ -1,13 +1,14 @@
-import { useParams } from "react-router-dom";
+/* eslint-disable prettier/prettier */
+import { useParams } from 'react-router-dom'
 
-import { Cards } from "../../components/Cards/Cards";
+import { Cards } from '../../components/Cards/Cards'
 
 export function GamePage() {
-  const { pairsCount } = useParams();
+  const { pairsCount } = useParams()
 
   return (
     <>
       <Cards pairsCount={parseInt(pairsCount, 10)} previewSeconds={5}></Cards>
     </>
-  );
+  )
 }

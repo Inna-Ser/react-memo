@@ -1,11 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
 import { GamePage } from "./pages/GamePage/GamePage";
 import { SelectLevelPage } from "./pages/SelectLevelPage/SelectLevelPage";
-
+import { SelectDifficultyPage } from "./pages/SelectDifficultyPage/SelectDifficultyPage";
 export const router = createBrowserRouter(
   [
     {
       path: "/",
+      element: <SelectDifficultyPage />,
+    },
+    {
+      path: "/levelPage",
       element: <SelectLevelPage />,
     },
     {
@@ -13,9 +17,7 @@ export const router = createBrowserRouter(
       element: <GamePage />,
     },
   ],
-  /**
-   * basename нужен для корректной работы в gh pages
-   * он же указан в homepage package.json и в index.html
-   */
-  { basename: "/react-memo" },
+  {
+    basename: "/react-memo",
+  },
 );
