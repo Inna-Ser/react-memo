@@ -75,7 +75,7 @@ export function SelectLevelPage() {
           </li>
         </ul>
         <p className={styles.selectedMode}>
-          {tipeMode} режим {lifes === 1 ? `(${lifes} жизнь)` : `(${lifes} жизни)`}
+          {tipeMode} режим {lifes === 1 ? `(${lifes} попытка)` : `(${lifes} попытки)`}
         </p>
         <Button children={"Играть"} onClick={handleStart} />
         <Link className={styles.comebackToMainPage} to={"/"}>

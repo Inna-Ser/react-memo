@@ -5,7 +5,7 @@ import styles from "./Cards.module.css";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GamesContext } from "../../context/GamesProvider.jsx";
 
 // Игра закончилась
@@ -48,6 +48,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [gameStartDate, setGameStartDate] = useState(null);
   // Дата конца игры
   const [gameEndDate, setGameEndDate] = useState(null);
+
+  const navigate = useNavigate();
 
   // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
   const [timer, setTimer] = useState({
@@ -180,6 +182,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     };
   }, [gameStartDate, gameEndDate]);
 
+  const goToLeaderbord = () => {
+    navigate("/leaderboard");
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -206,7 +212,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         <div className={styles.counterLifes}>
           {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
           <div className={styles.lifesText}>
-            Оставшиеся жизни <p className={styles.lifes}>{lifes}</p>
+            Количество попыток: <p className={styles.lifes}>{lifes}</p>
           </div>
         </div>
       </div>
@@ -235,8 +241,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       ) : null}
       <div className={styles.returnLinkBlock}>
         <Link className={styles.comebackToMainPage} to={"/"}>
-          Вернуться к выбору сложности (количество жизней)
+          Вернуться к выбору сложности (количество попыток)
         </Link>
+        <button className={styles.goToLeaderbord} onClick={goToLeaderbord}>
+          Перейти в лидерборд
+        </button>
         <Link className={styles.comebackToMainPage} to={"/levelPage"}>
           Вернуться к выбору уровня (количество карт)
         </Link>

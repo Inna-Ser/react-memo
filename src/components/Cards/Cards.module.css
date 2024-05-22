@@ -85,7 +85,22 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  column-gap: 170px;
+  column-gap: 40px;
+}
+
+.goToLeaderbord {
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  background-color: #7ac100;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 5px 10px;
+  &:hover {
+    color: #c2f5ff;
+  }
 }
 
 .lifesText {
@@ -107,6 +122,6 @@
 }
 
 .lifes {
-  color: aqua;
+  color: rgb(145, 232, 232);
   font-size: 18px;
 }
