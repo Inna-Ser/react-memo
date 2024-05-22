@@ -131,8 +131,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost) {
       const leftLifes = lifes - 1;
-      setLifes(leftLifes);
-
+      setLifes(Math.max(leftLifes, 0));
       if (leftLifes <= 0) {
         setTimeout(() => {
           finishGame(STATUS_LOST);
@@ -236,10 +235,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       ) : null}
       <div className={styles.returnLinkBlock}>
         <Link className={styles.comebackToMainPage} to={"/"}>
-          Вернуться к выбору сложности
+          Вернуться к выбору сложности (количество жизней)
         </Link>
         <Link className={styles.comebackToMainPage} to={"/levelPage"}>
-          Вернуться к выбору уровня
+          Вернуться к выбору уровня (количество карт)
         </Link>
       </div>
     </div>

@@ -31,10 +31,19 @@ export function SelectLevelPage() {
     setIsActive(level);
   };
 
+  const handleStart = () => {
+    if (isActive === 1) {
+      navigator("/game/3");
+    } else if (isActive === 2) {
+      navigator("/game/6");
+    } else if (isActive === 3) {
+      navigator("/game/9");
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.modal}>
-        {/* <p className={styles.textStart}>А теперь</p> */}
         <h1 className={styles.title}>Выбери уровень</h1>
         <ul className={styles.levels}>
           <li
@@ -66,20 +75,9 @@ export function SelectLevelPage() {
           </li>
         </ul>
         <p className={styles.selectedMode}>
-          {tipeMode} режим {lifes === 1 ? `${lifes} жизнь` : `${lifes} жизни`}
+          {tipeMode} режим {lifes === 1 ? `(${lifes} жизнь)` : `(${lifes} жизни)`}
         </p>
-        <Button
-          children={"Старт"}
-          onClick={() => {
-            if (lifes === 1) {
-              navigator("/game/3");
-            } else if (lifes === 2) {
-              navigator("/game/6");
-            } else if (lifes === 3) {
-              navigator("/game/9");
-            }
-          }}
-        />
+        <Button children={"Играть"} onClick={handleStart} />
         <Link className={styles.comebackToMainPage} to={"/"}>
           Вернуться к выбору сложности
         </Link>

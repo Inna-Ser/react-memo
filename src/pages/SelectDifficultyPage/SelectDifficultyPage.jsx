@@ -37,6 +37,9 @@ export const SelectDifficultyPage = () => {
             </Link>
           </li>
         </ul>
+        <Link className={styles.comebackToMainPage} to={"/leaderboard"}>
+          Перейти к лидерборду
+        </Link>
       </div>
     </div>
   );

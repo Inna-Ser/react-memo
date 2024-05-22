@@ -90,5 +90,5 @@
 }
 
 .active {
-  background-color: aqua;
+  border: 2px solid #0080c1;
 }
