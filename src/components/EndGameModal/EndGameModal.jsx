@@ -5,7 +5,7 @@ import { Button } from "../Button/Button";
 
 import deadImageUrl from "./images/dead.png";
 import celebrationImageUrl from "./images/celebration.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { GamesContext } from "../../context/GamesProvider";
 import classNames from "classnames";
@@ -43,9 +43,12 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
   return (
     <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
-      <h2 className={styles.title}>{title}</h2>
       {lifes === 1 ? (
         <>
+          <h2 className={styles.title}>
+            Вы попали <br />
+            на Лидерборд
+          </h2>
           <input
             className={styles.inputUser}
             placeholder="Пользователь"
@@ -63,10 +66,14 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
           >
             Отправить результат
           </button>
-          <Button onClick={onClick}>Начать сначала</Button>
+          <Button onClick={onClick}>Играть снова</Button>
+          <Link className={styles.comebackToMainPage} to={"/leaderboard"}>
+            Перейти к лидерборду
+          </Link>
         </>
       ) : (
         <>
+          <h2 className={styles.title}>{title}</h2>
           <p className={styles.description}>Затраченное время:</p>
           <div className={styles.time}>
             {gameDurationMinutes.toString().padStart("2", "0")}.{gameDurationSeconds.toString().padStart("2", "0")}

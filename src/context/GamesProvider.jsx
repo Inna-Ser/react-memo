@@ -5,15 +5,16 @@ import { addUserToLeaderboard, getLeaderbord } from "../api/api";
 export const GamesContext = React.createContext(null);
 
 export const LifeProvider = ({ children }) => {
-  const [lifes, setLifes] = useState(0);
+  const [lifes, setLifes] = useState(1);
   const [userName, setUserName] = useState("");
   const [results, setResults] = useState([]);
   const [listLeaderbord, setListLeaderboard] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     getLeaderbord()
       .then(data => {
-       // Сортировка и обрезка массива лидеров
+        // Сортировка и обрезка массива лидеров
         const sortedLeaderboard = data.sort((a, b) => a.time - b.time);
         const slicedLeaderboard = sortedLeaderboard.slice(0, 10);
         setListLeaderboard(slicedLeaderboard);
@@ -58,6 +59,8 @@ export const LifeProvider = ({ children }) => {
         setLifes,
         userName,
         setUserName,
+        isChecked,
+        setIsChecked,
       }}
     >
       {children}

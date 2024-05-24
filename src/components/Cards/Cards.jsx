@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { shuffle } from "lodash";
 import { useContext, useEffect, useState } from "react";
 import { STATUS_IN_PROGRESS, STATUS_LOST, STATUS_PREVIEW, STATUS_WON, generateDeck } from "../../utils/cards.js";
@@ -39,18 +40,14 @@ function getTimerValue(startDate, endDate) {
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
-
   const { lifes, setLifes } = useContext(GamesContext);
   // Текущий статус игры
   const [status, setStatus] = useState(STATUS_PREVIEW);
-
   // Дата начала игры
   const [gameStartDate, setGameStartDate] = useState(null);
   // Дата конца игры
   const [gameEndDate, setGameEndDate] = useState(null);
-
   const navigate = useNavigate();
-
   // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
   const [timer, setTimer] = useState({
     seconds: 0,
@@ -61,10 +58,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setGameEndDate(new Date());
     setStatus(status);
   }
-  const savedLifes = localStorage.getItem("lifes");
-  const initialLifes = savedLifes !== null ? parseInt(savedLifes) : lifes;
+
   function startGame() {
-    setLifes(initialLifes);
     const startDate = new Date();
     setGameEndDate(null);
     setGameStartDate(startDate);
@@ -73,7 +68,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   }
 
   function resetGame() {
-    setLifes(initialLifes);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
@@ -212,7 +206,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         <div className={styles.counterLifes}>
           {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
           <div className={styles.lifesText}>
-            Количество попыток: <p className={styles.lifes}>{lifes}</p>
+            Количество жизней: <p className={styles.lifes}>{lifes}</p>
           </div>
         </div>
       </div>
@@ -241,14 +235,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       ) : null}
       <div className={styles.returnLinkBlock}>
         <Link className={styles.comebackToMainPage} to={"/"}>
-          Вернуться к выбору сложности (количество попыток)
+          Вернуться к выбору сложности
         </Link>
         <button className={styles.goToLeaderbord} onClick={goToLeaderbord}>
           Перейти в лидерборд
         </button>
-        <Link className={styles.comebackToMainPage} to={"/levelPage"}>
-          Вернуться к выбору уровня (количество карт)
-        </Link>
       </div>
     </div>
   );

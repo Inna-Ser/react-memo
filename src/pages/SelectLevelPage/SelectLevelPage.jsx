@@ -1,43 +1,40 @@
+/* eslint-disable prettier/prettier */
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./SelectLevelPage.module.css";
-import { useContext, useEffect, useState } from "react";
-import { GamesContext } from "../../context/GamesProvider";
+import { useContext, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import classNames from "classnames";
+import Vector from "./images/Vector.svg";
+import { GamesContext } from "../../context/GamesProvider";
 
 export function SelectLevelPage() {
-  const { lifes } = useContext(GamesContext);
-  const [tipeMode, setTypeMode] = useState("");
-  const navigator = useNavigate();
-  const [isActive, setIsActive] = useState(null);
+  const { isChecked, setIsChecked, lifes, setLifes } = useContext(GamesContext);
+  const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (lifes === 1) {
-      setTypeMode("Сложный");
-      return;
+  const handleChange = () => {
+    setLifes(lifes);
+    setIsChecked(prevIsChecked => !prevIsChecked);
+    if (isChecked) {
+      setLifes(3);
+      console.log(lifes);
+    } else {
+      setLifes(1);
+      console.log(lifes);
     }
-    if (lifes === 2) {
-      setTypeMode("Средний");
-
-      return;
-    }
-    if (lifes === 3) {
-      setTypeMode("Легкий");
-      return;
-    }
-  }, [lifes]);
-
+  };
+  // Делает активной кнопку выбора уровня
   const handleClick = level => {
     setIsActive(level);
   };
 
   const handleStart = () => {
     if (isActive === 1) {
-      navigator("/game/3");
+      navigate("/game/3");
     } else if (isActive === 2) {
-      navigator("/game/6");
+      navigate("/game/6");
     } else if (isActive === 3) {
-      navigator("/game/9");
+      navigate("/game/9");
     }
   };
 
@@ -74,12 +71,19 @@ export function SelectLevelPage() {
             </Link>
           </li>
         </ul>
-        <p className={styles.selectedMode}>
-          {tipeMode} режим {lifes === 1 ? `(${lifes} попытка)` : `(${lifes} попытки)`}
-        </p>
+        <label className={styles.checkboxLabel}>
+          <input
+            src={Vector}
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleChange}
+            className={classNames(styles.customCheckbox, isChecked && styles.checked)}
+          ></input>
+          <p className={styles.selectedMode}>Легкий режим (3 жизни)</p>
+        </label>
         <Button children={"Играть"} onClick={handleStart} />
-        <Link className={styles.comebackToMainPage} to={"/"}>
-          Вернуться к выбору сложности
+        <Link className={styles.comebackToMainPage} to={"/leaderboard"}>
+          Перейти к лидерборду
         </Link>
       </div>
     </div>
