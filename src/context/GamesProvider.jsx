@@ -10,7 +10,7 @@ export const LifeProvider = ({ children }) => {
   const [results, setResults] = useState([]);
   const [listLeaderbord, setListLeaderboard] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
-  const [startLifes, setStartLifes] = useState(1);
+  const [initialLifes, setInitialLifes] = useState(1);
 
   useEffect(() => {
     getLeaderbord()
@@ -62,8 +62,8 @@ export const LifeProvider = ({ children }) => {
         setUserName,
         isChecked,
         setIsChecked,
-        startLifes,
-        setStartLifes,
+        initialLifes,
+        setInitialLifes,
       }}
     >
       {children}

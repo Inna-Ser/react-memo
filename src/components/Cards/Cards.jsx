@@ -40,7 +40,7 @@ function getTimerValue(startDate, endDate) {
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
-  const { lifes, setLifes } = useContext(GamesContext);
+  const { lifes, setLifes, initialLifes } = useContext(GamesContext);
   // Текущий статус игры
   const [status, setStatus] = useState(STATUS_PREVIEW);
   // Дата начала игры
@@ -59,8 +59,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setStatus(status);
   }
 
-  const savedLifes = localStorage.getItem("lifes");
-  const initialLifes = savedLifes !== null ? parseInt(savedLifes) : lifes;
+  // const savedLifes = localStorage.getItem("lifes");
+  // const initialLifes = savedLifes !== null ? parseInt(savedLifes) : lifes;
 
   function startGame() {
     setLifes(initialLifes);
@@ -209,10 +209,14 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           )}
         </div>
         <div className={styles.counterLifes}>
-          {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
-          <div className={styles.lifesText}>
-            Количество жизней: <p className={styles.lifes}>{lifes}</p>
-          </div>
+          {status === STATUS_IN_PROGRESS ? (
+            <>
+              <Button onClick={resetGame}>Начать заново</Button>
+              <div className={styles.lifesText}>
+                Количество жизней: <p className={styles.lifes}>{lifes}</p>
+              </div>
+            </>
+          ) : null}
         </div>
       </div>
 

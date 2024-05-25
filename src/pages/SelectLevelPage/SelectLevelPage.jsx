@@ -8,18 +8,12 @@ import VectorImageUrl from "./images/Vector.svg";
 import { GamesContext } from "../../context/GamesProvider";
 
 export function SelectLevelPage() {
-  const { isChecked, setIsChecked, lifes, setLifes } = useContext(GamesContext);
+  const { isChecked, setIsChecked, setInitialLifes } = useContext(GamesContext);
   const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = () => {
-    if (!isChecked) {
-      setLifes(3);
-      console.log(lifes);
-    } else {
-      setLifes(1);
-      console.log(lifes);
-    }
+    setInitialLifes(!isChecked ? 3 : 1);
     setIsChecked(prevIsChecked => !prevIsChecked);
   };
   // Делает активной кнопку выбора уровня
