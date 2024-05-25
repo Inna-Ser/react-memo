@@ -4,7 +4,7 @@ import styles from "./SelectLevelPage.module.css";
 import { useContext, useState } from "react";
 import { Button } from "../../components/Button/Button";
 import classNames from "classnames";
-import Vector from "./images/Vector.svg";
+import VectorImageUrl from "./images/Vector.svg";
 import { GamesContext } from "../../context/GamesProvider";
 
 export function SelectLevelPage() {
@@ -13,15 +13,14 @@ export function SelectLevelPage() {
   const navigate = useNavigate();
 
   const handleChange = () => {
-    setLifes(lifes);
-    setIsChecked(prevIsChecked => !prevIsChecked);
-    if (isChecked) {
+    if (!isChecked) {
       setLifes(3);
       console.log(lifes);
     } else {
       setLifes(1);
       console.log(lifes);
     }
+    setIsChecked(prevIsChecked => !prevIsChecked);
   };
   // Делает активной кнопку выбора уровня
   const handleClick = level => {
@@ -73,7 +72,7 @@ export function SelectLevelPage() {
         </ul>
         <label className={styles.checkboxLabel}>
           <input
-            src={Vector}
+            src={VectorImageUrl}
             type="checkbox"
             checked={isChecked}
             onChange={handleChange}

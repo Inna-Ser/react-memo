@@ -59,7 +59,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setStatus(status);
   }
 
+  const savedLifes = localStorage.getItem("lifes");
+  const initialLifes = savedLifes !== null ? parseInt(savedLifes) : lifes;
+
   function startGame() {
+    setLifes(initialLifes);
     const startDate = new Date();
     setGameEndDate(null);
     setGameStartDate(startDate);
@@ -68,6 +72,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   }
 
   function resetGame() {
+    setLifes(initialLifes);
     setGameStartDate(null);
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
