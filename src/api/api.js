@@ -17,11 +17,11 @@ export const getLeaderbord = async () => {
   }
 };
 
-export const addUserToLeaderboard = async ({ name, time }) => {
+export const addUserToLeaderboard = async ({ name, achievements, time }) => {
   try {
     const response = await fetch(baseURL, {
       method: "POST",
-      body: JSON.stringify({ name, time }),
+      body: JSON.stringify({ name, achievements, time }),
     });
     if (!response.ok) {
       throw new Error("Ошибка при добавления пользователя:" + response.status);

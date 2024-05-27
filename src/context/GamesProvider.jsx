@@ -11,6 +11,7 @@ export const LifeProvider = ({ children }) => {
   const [listLeaderbord, setListLeaderboard] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [initialLifes, setInitialLifes] = useState(1);
+  const [achievements, setachievements] = useState([]);
 
   useEffect(() => {
     getLeaderbord()
@@ -29,10 +30,11 @@ export const LifeProvider = ({ children }) => {
       });
   }, []);
 
-  const onAddUserToLeaderboard = async ({ name, time }) => {
+  const onAddUserToLeaderboard = async ({ name, achievements, time }) => {
     try {
       const newUser = await addUserToLeaderboard({
         name,
+        achievements,
         time,
       });
       const leaderboardResponse = await getLeaderbord();
@@ -42,7 +44,7 @@ export const LifeProvider = ({ children }) => {
       setListLeaderboard(leaderboard);
       leaderboard = leaderboard.slice(0, 10);
       setListLeaderboard(leaderboard);
-      return { id: newUser.id, name: newUser.name, time: newUser.time };
+      return { id: newUser.id, name: newUser.name, achievements: newUser.achievements, time: newUser.time };
     } catch (error) {
       console.error("Не удалось загрузить лидерборд:", error.message);
     }
@@ -64,6 +66,8 @@ export const LifeProvider = ({ children }) => {
         setIsChecked,
         initialLifes,
         setInitialLifes,
+        achievements,
+        setachievements,
       }}
     >
       {children}
