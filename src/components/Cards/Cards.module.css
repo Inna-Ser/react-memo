@@ -125,3 +125,13 @@
   color: rgb(145, 232, 232);
   font-size: 18px;
 }
+
+.achievementsButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.disabled {
+  opacity: 0.5; /* Делает кнопку полупрозрачной */
+  filter: grayscale(100%); /* Делает изображение черно-белым */
+}

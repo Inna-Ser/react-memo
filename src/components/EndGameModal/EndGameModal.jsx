@@ -11,10 +11,9 @@ import { GamesContext } from "../../context/GamesProvider";
 import classNames from "classnames";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick }) {
-  const { userName, setUserName, onAddUserToLeaderboard } = useContext(GamesContext);
+  const { userName, setUserName, onAddUserToLeaderboard, isActive } = useContext(GamesContext);
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
   const navigate = useNavigate();
-  const { lifes } = useContext(GamesContext);
 
   const title = isWon ? "Вы победили!" : "Вы проиграли!";
 
@@ -32,8 +31,9 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   const handleButtonClick = async () => {
     const gameTime = gameDurationMinutes * 60 + gameDurationSeconds;
+    const achievements = [];
     try {
-      await onAddUserToLeaderboard({ name: userName, time: gameTime });
+      await onAddUserToLeaderboard({ name: userName, achievements, time: gameTime });
       navigate("/leaderboard");
     } catch (error) {
       console.error("Ошибка при сохранении результата:", error.message);
@@ -43,7 +43,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
   return (
     <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
-      {lifes === 1 ? (
+      {isActive === 1 ? (
         <>
           <h2 className={styles.title}>
             Вы попали <br />

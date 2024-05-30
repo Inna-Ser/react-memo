@@ -8,6 +8,8 @@ import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { Link, useNavigate } from "react-router-dom";
 import { GamesContext } from "../../context/GamesProvider.jsx";
+import epiphanyImageUrl from "./imades/epiphany.png";
+import alohomoraImageUrl from "./imades/alohomora.svg";
 
 function getTimerValue(startDate, endDate) {
   if (!startDate && !endDate) {
@@ -32,11 +34,21 @@ function getTimerValue(startDate, endDate) {
 
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [cards, setCards] = useState([]);
-  const { lifes, setLifes, initialLifes } = useContext(GamesContext);
+  const {
+    lifes,
+    setLifes,
+    initialLifes,
+    isEpiphanyDisabled,
+    setIsEpiphanyDisabled,
+    isAlohomoraDisabled,
+    setIsAlohomoraDisabled,
+  } = useContext(GamesContext);
   const [status, setStatus] = useState(STATUS_PREVIEW);
   const [gameStartDate, setGameStartDate] = useState(null);
   const [gameEndDate, setGameEndDate] = useState(null);
   const [lastOpenedCard, setLastOpenedCard] = useState(null);
+  const [timerIntervalId, setTimerIntervalId] = useState(null); // стейт для остановки времени
+
   const navigate = useNavigate();
   const [timer, setTimer] = useState({
     seconds: 0,
@@ -58,6 +70,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   }
 
   function resetGame() {
+    setIsEpiphanyDisabled(false);
+    setIsAlohomoraDisabled(false);
     setLifes(initialLifes);
     setGameStartDate(null);
     setGameEndDate(null);
@@ -152,6 +166,39 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const goToLeaderbord = () => {
     navigate("/leaderboard");
   };
+
+  const handleAchievementEpiphany = () => {
+    if (isEpiphanyDisabled) return;
+    clearInterval(timerIntervalId);
+    setTimerIntervalId(null);
+    const openCards = cards.map(card => ({ ...card, open: true }));
+    setCards(openCards);
+    setTimeout(() => {
+      setCards(cards);
+    }, 5000);
+    setIsEpiphanyDisabled(true);
+  };
+
+  const handleAchievementAlohomora = () => {
+    if (isAlohomoraDisabled) return;
+    const closedCards = cards.filter(card => !card.open);
+    // Выбираем случайную карту из закрытых
+    const randomIndex = Math.floor(Math.random() * closedCards.length);
+    const randomCard = closedCards[randomIndex];
+    // Находим пару для выбранной карты
+    const pairedCard = closedCards.find(
+      card => card.suit === randomCard.suit && card.rank === randomCard.rank && card.id !== randomCard.id,
+    );
+
+    if (pairedCard) {
+      const updatedCards = cards.map(card =>
+        card.id === randomCard.id || card.id === pairedCard.id ? { ...card, open: true } : card,
+      );
+      setCards(updatedCards);
+    }
+    setIsAlohomoraDisabled(true);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -175,9 +222,20 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             </>
           )}
         </div>
-        {/* <div>
-            <button><img></img></button>
-          </div> */}
+        <div className={styles.achievementsButtons}>
+          <div
+            className={!isEpiphanyDisabled ? styles.achievementsButton : styles.disabled}
+            onClick={handleAchievementEpiphany}
+          >
+            <img src={epiphanyImageUrl} />
+          </div>
+          <div
+            className={!isAlohomoraDisabled ? styles.achievementsButton : styles.disabled}
+            onClick={handleAchievementAlohomora}
+          >
+            <img src={alohomoraImageUrl} />
+          </div>
+        </div>
         <div className={styles.counterLifes}>
           {status === STATUS_IN_PROGRESS ? (
             <>

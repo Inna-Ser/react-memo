@@ -1,15 +1,14 @@
 /* eslint-disable prettier/prettier */
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./SelectLevelPage.module.css";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Button } from "../../components/Button/Button";
 import classNames from "classnames";
 import VectorImageUrl from "./images/Vector.svg";
 import { GamesContext } from "../../context/GamesProvider";
 
 export function SelectLevelPage() {
-  const { isChecked, setIsChecked, setInitialLifes } = useContext(GamesContext);
-  const [isActive, setIsActive] = useState(false);
+  const { isChecked, setIsChecked, setInitialLifes, isActive, setIsActive } = useContext(GamesContext);
   const navigate = useNavigate();
 
   const handleChange = () => {

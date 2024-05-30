@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-const baseURL = "https://wedev-api.sky.pro/api/leaderboard";
+const baseURL = "https://wedev-api.sky.pro/api/v2/leaderboard";
 
 export const getLeaderbord = async () => {
   try {

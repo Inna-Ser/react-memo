@@ -12,13 +12,23 @@ export const LifeProvider = ({ children }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [initialLifes, setInitialLifes] = useState(1);
   const [achievements, setachievements] = useState([]);
+  const [isEpiphanyDisabled, setIsEpiphanyDisabled] = useState(false);
+  const [isAlohomoraDisabled, setIsAlohomoraDisabled] = useState(false);
+  const [isActive, setIsActive] = useState(null);
 
   useEffect(() => {
     getLeaderbord()
       .then(data => {
+        const mappedLeaderboard = data.map(leader => {
+          const hasSuperpowerAchievement = leader.achievements.includes(2);
+          const hasHardmodeAchievement = leader.achievements.includes(1);
+          return { ...leader, hasSuperpowerAchievement, hasHardmodeAchievement };
+        });
+        console.log(mappedLeaderboard);
+
         // Сортировка и обрезка массива лидеров
-        const sortedLeaderboard = data.sort((a, b) => a.time - b.time);
-        const slicedLeaderboard = sortedLeaderboard.slice(0, 10);
+        mappedLeaderboard.sort((a, b) => a.time - b.time);
+        const slicedLeaderboard = mappedLeaderboard.slice(0, 10);
         setListLeaderboard(slicedLeaderboard);
       })
       .catch(error => {
@@ -37,13 +47,13 @@ export const LifeProvider = ({ children }) => {
         achievements,
         time,
       });
-      const leaderboardResponse = await getLeaderbord();
-      const leaderboard = leaderboardResponse;
-      // Поиск позиции нового пользователя
-      leaderboard.sort((a, b) => a.time - b.time);
-      setListLeaderboard(leaderboard);
-      leaderboard = leaderboard.slice(0, 10);
-      setListLeaderboard(leaderboard);
+      if (isChecked) {
+        achievements.push(1);
+      };
+      if (isAlohomoraDisabled || isEpiphanyDisabled) {
+        achievements.push(2);
+      };
+      setListLeaderboard(listLeaderboard => [...listLeaderboard, newUser]);
       return { id: newUser.id, name: newUser.name, achievements: newUser.achievements, time: newUser.time };
     } catch (error) {
       console.error("Не удалось загрузить лидерборд:", error.message);
@@ -68,6 +78,12 @@ export const LifeProvider = ({ children }) => {
         setInitialLifes,
         achievements,
         setachievements,
+        isEpiphanyDisabled,
+        setIsEpiphanyDisabled,
+        isAlohomoraDisabled,
+        setIsAlohomoraDisabled,
+        isActive,
+        setIsActive,
       }}
     >
       {children}
