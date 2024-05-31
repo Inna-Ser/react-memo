@@ -42,18 +42,20 @@ export const LifeProvider = ({ children }) => {
 
   const onAddUserToLeaderboard = async ({ name, achievements, time }) => {
     try {
+      const updataAchievements = [...achievements];
+      if (!isChecked) {
+        updataAchievements.push(1);
+      }
+      if (!isAlohomoraDisabled || !isEpiphanyDisabled) {
+        updataAchievements.push(2);
+      }
       const newUser = await addUserToLeaderboard({
         name,
-        achievements,
+        achievements: updataAchievements,
         time,
       });
-      if (isChecked) {
-        achievements.push(1);
-      };
-      if (isAlohomoraDisabled || isEpiphanyDisabled) {
-        achievements.push(2);
-      };
-      setListLeaderboard(listLeaderboard => [...listLeaderboard, newUser]);
+      const newLiders = newUser.sort((a, b) => a.time - b.time).slice(0, 10);
+      setListLeaderboard(newLiders);
       return { id: newUser.id, name: newUser.name, achievements: newUser.achievements, time: newUser.time };
     } catch (error) {
       console.error("Не удалось загрузить лидерборд:", error.message);

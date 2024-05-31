@@ -7,6 +7,11 @@ import { STATUS_PREVIEW } from "../../utils/cards";
 import { GamesContext } from "../../context/GamesProvider";
 import { achievements } from "../../utils/achievements";
 
+const formatTime = time => {
+  const minutes = Math.floor(time / 60);
+  const second = time % 60;
+  return `${minutes.toString().padStart(2, "0")}:${second.toString().padStart(2, "0")}`;
+};
 const LeaderItems = () => {
   const { listLeaderbord = [] } = useContext(GamesContext);
 
@@ -24,16 +29,24 @@ const LeaderItems = () => {
             <p className={styles.numbUser}># {index + 1}</p>
             <p className={styles.nameUser}>{result.name}</p>
             <div className={styles.achievementsUser}>
-              <div className={styles.achievementsHardMode}>
-                <div className={styles.hoverText}>Игра пройдена в сложном режиме</div>
-
+              <div className={styles.achievements}>
+                {result.hasHardmodeAchievement ? (
+                  <div className={styles.hoverText}>Игра пройдена в сложном режиме</div>
+                ) : (
+                  ""
+                )}
                 <img src={result.hasHardmodeAchievement ? achievements.active[1] : achievements.passive[1]} />
               </div>
-              <div className={styles.achievementsSuperPower}>
+              <div className={styles.achievements}>
+                {result.hasHardmodeAchievement ? (
+                  <div className={styles.hoverText}>Игра пройдена без супер-сил</div>
+                ) : (
+                  ""
+                )}
                 <img src={result.hasSuperpowerAchievement ? achievements.active[2] : achievements.passive[2]} />
               </div>
             </div>
-            <p className={styles.timeUser}>{result.time}</p>
+            <p className={styles.timeUser}>{formatTime(result.time)}</p>
           </div>
         );
       })}

@@ -47,7 +47,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [gameStartDate, setGameStartDate] = useState(null);
   const [gameEndDate, setGameEndDate] = useState(null);
   const [lastOpenedCard, setLastOpenedCard] = useState(null);
-  const [timerIntervalId, setTimerIntervalId] = useState(null); // стейт для остановки времени
+  const [isTimerPaused, setIsTimerPaused] = useState(false); // стейт для остановки времени
 
   const navigate = useNavigate();
   const [timer, setTimer] = useState({
@@ -156,12 +156,13 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
+      if (isTimerPaused) return;
       setTimer(getTimerValue(gameStartDate, gameEndDate));
     }, 300);
     return () => {
       clearInterval(intervalId);
     };
-  }, [gameStartDate, gameEndDate]);
+  }, [gameStartDate, gameEndDate, isTimerPaused]);
 
   const goToLeaderbord = () => {
     navigate("/leaderboard");
@@ -169,12 +170,15 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   const handleAchievementEpiphany = () => {
     if (isEpiphanyDisabled) return;
-    clearInterval(timerIntervalId);
-    setTimerIntervalId(null);
     const openCards = cards.map(card => ({ ...card, open: true }));
+    setIsTimerPaused(true);
     setCards(openCards);
     setTimeout(() => {
+      setIsTimerPaused(false);
       setCards(cards);
+      const newStartDate = new Date(gameStartDate);
+      newStartDate.setSeconds(newStartDate.getSeconds() + 5);
+      setGameStartDate(newStartDate);
     }, 5000);
     setIsEpiphanyDisabled(true);
   };
@@ -227,12 +231,22 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             className={!isEpiphanyDisabled ? styles.achievementsButton : styles.disabled}
             onClick={handleAchievementEpiphany}
           >
+            <div className={styles.hoverTextEpiphany}>
+              <strong>Прозрение</strong> <br />
+              <br /> на 5 секунд показываются все карты. Таймер длительности игры на это время останавливается.{" "}
+            </div>
+
             <img src={epiphanyImageUrl} />
           </div>
           <div
             className={!isAlohomoraDisabled ? styles.achievementsButton : styles.disabled}
             onClick={handleAchievementAlohomora}
           >
+            <div className={styles.hoverTextAlohomora}>
+              <strong>Алохомора</strong> <br />
+              <br />
+              Открывается случайная пара карт.{" "}
+            </div>
             <img src={alohomoraImageUrl} />
           </div>
         </div>

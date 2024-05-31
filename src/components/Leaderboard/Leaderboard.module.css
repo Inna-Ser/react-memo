@@ -57,33 +57,41 @@
     flex-direction: column;
   }
   .headerNameUser, .nameUser {
-    flex: 2; 
+    flex: 3; 
     /* text-align: left;  */
   }
   .numbUser, .timeUser, .achievementsUser, .headerAchievementsUser, .timeUser {
     flex: 1; 
   }
-  /* .timeUser {
-    flex: 0;
-  } */
+  .timeUser {
+    text-align: end;
+  }
   .achievementsUser {
     display: flex;
     gap: 8px;
+    position: relative;
   }
   .hoverText {
+    width: 110px;
+    height: 40px;
     display: none;
     position: absolute;
+    text-align: center;
     top: -30px;
-    left: 50%;
+    left: 100%;
     transform: translateX(-50%);
     background-color: #C2F5FF;
+    border: 12px;
     color: black;
-    padding: 5px;
+    padding: 15px 5px 5px;
     border-radius: 5px;
-    font-size: 12px;
+    font-size: 14px;
   }
   
-  .achievementsHardMode:hover .hoverText {
+  .achievements:hover .hoverText {
     display: block;
   }
+
+  
+
   

@@ -4,6 +4,7 @@
   padding: 26px;
   padding-top: 22px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .cards {
@@ -129,9 +130,67 @@
 .achievementsButtons {
   display: flex;
   gap: 10px;
+  position: relative;
 }
 
 .disabled {
   opacity: 0.5; /* Делает кнопку полупрозрачной */
   filter: grayscale(100%); /* Делает изображение черно-белым */
 }
+
+.achievementsButton {
+  position: relative; /* Контекст для псевдоэлемента */
+  z-index: 2; /* Поверх затемняющего фона */
+}
+
+.achievementsButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw; /* Покрывает весь видимый экран */
+  height: 100vh; /* Покрывает весь видимый экран */
+  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный чёрный фон */
+  opacity: 0; /* Изначально невидим */
+  transition: opacity 0.3s; /* Плавный переход */
+  z-index: -1; /* Под кнопкой */
+}
+
+.achievementsButton:hover::before {
+  opacity: 1; /* Появляется при наведении */
+}
+
+.hoverTextEpiphany,
+.hoverTextAlohomora {
+  display: none;
+  position: absolute;
+  text-align: center;
+  background-color: #C2F5FF;
+  color: black;
+  padding: 15px 5px 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 3; /* Поверх затемняющего фона */
+}
+
+.hoverTextEpiphany {
+  width: 130px;
+  height: 140px;
+  top: 70px;
+  left: 20%;
+  transform: translateX(-50%);
+}
+
+.hoverTextAlohomora {
+  width: 130px;
+  height: 80px;
+  top: 70px;
+  left: 80%;
+  transform: translateX(-50%);
+}
+
+.achievementsButton:hover .hoverTextAlohomora,
+.achievementsButton:hover .hoverTextEpiphany {
+  display: block;
+}
+
