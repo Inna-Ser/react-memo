@@ -4,6 +4,7 @@
   padding: 26px;
   padding-top: 22px;
   box-sizing: border-box;
+  position: relative;
 }
 
 .cards {
@@ -69,4 +70,134 @@
   line-height: 32px;
 
   margin-bottom: -12px;
+}
+
+.comebackToMainPage {
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  margin-top: 25px;
+  &:hover {
+    color: #c2f5ff;
+  }
+}
+
+.returnLinkBlock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  column-gap: 40px;
+}
+
+.goToLeaderbord {
+  width: auto;
+  height: auto;
+  border-radius: 12px;
+  background-color: #7ac100;
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 20px;
+  padding: 5px 10px;
+  &:hover {
+    color: #c2f5ff;
+  }
+}
+
+.lifesText {
+  display: flex;
+  color: #fff;
+  font-size: 16px;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+  margin-bottom: 10px;
+  align-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.counterLifes {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.lifes {
+  color: rgb(145, 232, 232);
+  font-size: 18px;
+}
+
+.achievementsButtons {
+  display: flex;
+  gap: 10px;
+  position: relative;
+}
+
+.disabled {
+  opacity: 0.5; /* Делает кнопку полупрозрачной */
+  filter: grayscale(100%); /* Делает изображение черно-белым */
+}
+
+.achievementsButton {
+  position: relative; /* Контекст для псевдоэлемента */
+  z-index: 2; /* Поверх затемняющего фона */
+  border-radius: 50%;
+}
+
+.achievementsButton:hover {
+  box-shadow: 0 0 0 100vw #00000060;
+}
+
+.achievementsButton:hover::before {
+  opacity: 1; /* Появляется при наведении */
+  position: fixed;
+}
+
+.hoverTextEpiphany,
+.hoverTextAlohomora {
+  display: none;
+  position: absolute;
+  text-align: center;
+  background-color: #C2F5FF;
+  color: black;
+  padding: 15px 5px 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  z-index: 3; /* Поверх затемняющего фона */
+}
+
+.hoverTextEpiphany {
+  width: 130px;
+  height: 140px;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hoverTextAlohomora {
+  width: 130px;
+  height: 80px;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.achievementsButton:hover .hoverTextAlohomora,
+.achievementsButton:hover .hoverTextEpiphany {
+  display: block;
+}
+
+.layout {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1; 
+}
+
+.achievementsButton:hover ~ .layout {
+  display: block;
 }

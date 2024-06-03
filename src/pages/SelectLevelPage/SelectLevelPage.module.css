@@ -43,9 +43,11 @@
   flex-direction: column;
   justify-content: center;
   flex-shrink: 0;
-
   border-radius: 12px;
   background: #fff;
+  &:hover {
+    background-color: #c2f5ff;
+  }
 }
 
 .levelLink {
@@ -61,4 +63,65 @@
 
 .levelLink:visited {
   color: #0080c1;
+}
+
+.textStart {
+  font-size: 40px;
+  color: #004980;
+  text-align: center;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: StratosSkyeng;
+}
+
+.comebackToMainPage {
+  text-align: center;
+  color: #004980;
+  font-size: 16px;
+  margin-top: 30px;
+  &:hover {
+    color: #0080c1;
+  }
+}
+
+.selectedMode {
+  font-size: 24px;
+  margin-bottom: 30px;
+  font-family: StratosSkyeng;
+}
+
+.active {
+  border: 2px solid #7ac100;
+}
+
+.checkboxLabel {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.customCheckbox {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  background-color: #ffffff; /* Цвет фона */
+  border: none;
+
+}
+
+.customCheckbox::after {
+  content: "";
+  position: absolute;
+  display: none; /* Изначально скрываем галочку */
+  border: none;
+
+}
+
+.customCheckbox:checked::after {
+  display: block; /* Показываем галочку при выборе чекбокса */
+  width: 16px;
+  height: 16px;
+  border-color: #7ac100; /* Цвет галочки */
+  border-radius: 3px; /* Добавляем скругление галочки */
+  top: 4px; /* Подстраиваем положение галочки по вертикали */
+  left: 4px; /* Подстраиваем положение галочки по горизонтали */
 }

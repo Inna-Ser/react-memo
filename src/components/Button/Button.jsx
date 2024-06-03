@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import styles from "./Button.module.css";
 
 export function Button({ children, onClick }) {

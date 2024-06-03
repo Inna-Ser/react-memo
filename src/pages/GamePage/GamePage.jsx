@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { useParams } from "react-router-dom";
 
 import { Cards } from "../../components/Cards/Cards";

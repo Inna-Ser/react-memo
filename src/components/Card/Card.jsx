@@ -1,6 +1,7 @@
-import { CROSS_SUIT, DIAMONDS_SUIT, HEARTS_SUIT, SPADES_SUIT } from "../../const";
+import React from "react";
+import PropTypes from "prop-types";
+import { CROSS_SUIT, DIAMONDS_SUIT, HEARTS_SUIT, SPADES_SUIT } from "../../utils/const";
 import styles from "./Card.module.css";
-
 import heartsImageUrl from "./images/hearts.svg";
 import crossImageUrl from "./images/cross.svg";
 import spadesImageUrl from "./images/spades.svg";
@@ -67,3 +68,10 @@ export function Card({ onClick, suit, rank, open }) {
     </div>
   );
 }
+
+Card.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  suit: PropTypes.oneOf([HEARTS_SUIT, CROSS_SUIT, SPADES_SUIT, DIAMONDS_SUIT]).isRequired,
+  rank: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+};
