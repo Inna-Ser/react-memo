@@ -169,7 +169,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   };
 
   const handleAchievementEpiphany = () => {
-    if (isEpiphanyDisabled) return;
+    if (isEpiphanyDisabled || status === STATUS_PREVIEW) return;
     const openCards = cards.map(card => ({ ...card, open: true }));
     setIsTimerPaused(true);
     setCards(openCards);
@@ -184,7 +184,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   };
 
   const handleAchievementAlohomora = () => {
-    if (isAlohomoraDisabled) return;
+    if (isAlohomoraDisabled || isTimerPaused || status === STATUS_PREVIEW) return;
     const closedCards = cards.filter(card => !card.open);
     // Выбираем случайную карту из закрытых
     const randomIndex = Math.floor(Math.random() * closedCards.length);
@@ -250,6 +250,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             <img src={alohomoraImageUrl} />
           </div>
         </div>
+        <div className={styles.layout}></div>
         <div className={styles.counterLifes}>
           {status === STATUS_IN_PROGRESS ? (
             <>

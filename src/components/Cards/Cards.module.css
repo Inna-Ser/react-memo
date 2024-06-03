@@ -141,23 +141,16 @@
 .achievementsButton {
   position: relative; /* Контекст для псевдоэлемента */
   z-index: 2; /* Поверх затемняющего фона */
+  border-radius: 50%;
 }
 
-.achievementsButton::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw; /* Покрывает весь видимый экран */
-  height: 100vh; /* Покрывает весь видимый экран */
-  background: rgba(0, 0, 0, 0.5); /* Полупрозрачный чёрный фон */
-  opacity: 0; /* Изначально невидим */
-  transition: opacity 0.3s; /* Плавный переход */
-  z-index: -1; /* Под кнопкой */
+.achievementsButton:hover {
+  box-shadow: 0 0 0 100vw #00000060;
 }
 
 .achievementsButton:hover::before {
   opacity: 1; /* Появляется при наведении */
+  position: fixed;
 }
 
 .hoverTextEpiphany,
@@ -177,7 +170,7 @@
   width: 130px;
   height: 140px;
   top: 70px;
-  left: 20%;
+  left: 50%;
   transform: translateX(-50%);
 }
 
@@ -185,7 +178,7 @@
   width: 130px;
   height: 80px;
   top: 70px;
-  left: 80%;
+  left: 50%;
   transform: translateX(-50%);
 }
 
@@ -194,3 +187,17 @@
   display: block;
 }
 
+.layout {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1; 
+}
+
+.achievementsButton:hover ~ .layout {
+  display: block;
+}

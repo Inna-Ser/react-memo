@@ -31,15 +31,15 @@ const LeaderItems = () => {
             <div className={styles.achievementsUser}>
               <div className={styles.achievements}>
                 {result.hasHardmodeAchievement ? (
-                  <div className={styles.hoverText}>Игра пройдена в сложном режиме</div>
+                  <div className={styles.hoverTextHardMode}>Игра пройдена в сложном режиме</div>
                 ) : (
                   ""
                 )}
                 <img src={result.hasHardmodeAchievement ? achievements.active[1] : achievements.passive[1]} />
               </div>
               <div className={styles.achievements}>
-                {result.hasHardmodeAchievement ? (
-                  <div className={styles.hoverText}>Игра пройдена без супер-сил</div>
+                {result.hasSuperpowerAchievement ? (
+                  <div className={styles.hoverTextSuperpower}>Игра пройдена без супер-сил</div>
                 ) : (
                   ""
                 )}
